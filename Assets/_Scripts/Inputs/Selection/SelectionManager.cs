@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -41,12 +42,15 @@ namespace Swatantra.Inputs.Selection
 
         public static void Deselect(SelectableObject objectToDeselect)
         {
+            if (CurrentlySelected.Count == 0) return;
+
             foreach (SelectableObject item in CurrentlySelected)
             {
                 if (item == objectToDeselect)
                 {
                     CurrentlySelected.Remove(item);
-                    item.OnDeselect(); 
+                    item.OnDeselect();
+                    return;
                 }
             }
         }
