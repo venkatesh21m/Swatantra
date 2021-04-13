@@ -9,20 +9,40 @@ namespace Swatantra.Inputs.Selection
 {
     public class SelectionManager : MonoBehaviour
     {
+        public bool SingleCharacterControl;
+        public bool multiPlayerControl;
+
+        public MovementSystems.PlayerMovement currentPlayer;
+
         public static HashSet<SelectableObject> AllSelectables = new HashSet<SelectableObject>();
         public static HashSet<SelectableObject> CurrentlySelected = new HashSet<SelectableObject>();
 
         private void Start()
         {
-             EventManager.OnMoveTothisLocationEvent.AddListener(HandleMovetoThisLocationEvent);
+            if (SingleCharacterControl)
+            {
+                EventManager.OnSingleCharacterController.Invoke(true);
+                EventManager.OnMoveTothisLocationEvent.AddListener(SetDestinationToMainCharacter);
+
+            }
+            else if (multiPlayerControl)
+            {
+                EventManager.OnMultiCharacterController.Invoke(true);
+                EventManager.OnMoveTothisLocationEvent.AddListener(HandleMultiMovetoThisLocationEvent);
+            }
         }
 
-        private static void HandleMovetoThisLocationEvent(Vector3 targetlocation)
+        private static void HandleMultiMovetoThisLocationEvent(Vector3 targetlocation)
         {
             foreach (SelectableObject item in CurrentlySelected)
             {
                item.GetComponent<MovementSystems.PlayerMovement>().SetAgentDestination(targetlocation);
             }
+        }
+
+        public void SetDestinationToMainCharacter(Vector3 targetPos)
+        {
+            currentPlayer.SetAgentDestination(targetPos);
         }
 
         /// <summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Swatantra;
+using Swatantra.Events;
 
 
 namespace Swatantra.Inputs.Selection
@@ -13,6 +13,22 @@ namespace Swatantra.Inputs.Selection
         [SerializeField] Image SelectionBox;
         Vector2 StartPosition;
         Rect SelectionRect;
+
+        private void Start()
+        {
+            EventManager.OnMultiCharacterController.AddListener(HandleMultiCharSelection);
+            EventManager.OnSingleCharacterController.AddListener(HandleSingleCharSelection);
+        }
+
+        private void HandleMultiCharSelection(bool arg0)
+        {
+            this.enabled = true;
+        }
+
+        private void HandleSingleCharSelection(bool arg0)
+        {
+            this.enabled = false;
+        }
 
         public void OnBeginDrag(PointerEventData eventData)
         {

@@ -1349,7 +1349,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraMovementSpeed: 10
-  mouseScrollSpeedModifier: 100
+  PixelXGap: 25
+  PixelYGap: 25
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,6 +3063,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258332684}
   m_CullTransparentMesh: 1
+--- !u!114 &1333439099 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8506860220176121580, guid: ac7dbaf839055fd4e832e3e707c8e601, type: 3}
+  m_PrefabInstance: {fileID: 8506860222118143531}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf383bbd8a8500b4a9b46472e3bdb404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1455114261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83410,6 +83422,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03de1a0cfdbba7444b3e3163b255f694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SingleCharacterControl: 1
+  multiPlayerControl: 0
+  currentPlayer: {fileID: 1333439099}
 --- !u!4 &2062603979
 Transform:
   m_ObjectHideFlags: 0

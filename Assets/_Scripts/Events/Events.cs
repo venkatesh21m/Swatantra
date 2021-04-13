@@ -16,5 +16,10 @@ namespace Swatantra.Events
         /// </summary>
         [System.Serializable] public class OnMouseClickEvent : UnityEvent<Vector3> { };
 
+        /// <summary>
+        /// Event for handling all events which passes a boolean
+        /// </summary>
+        [System.Serializable] public class OnBoolEvent:UnityEvent<bool> { };
+
     }
 }

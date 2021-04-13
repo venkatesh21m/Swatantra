@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Swatantra.Events;
+using System;
 
 namespace Swatantra.Inputs.Selection
 {
     public class SelectableObject : MonoBehaviour
     {
-        Renderer renderer;
+        public static bool isactive = true;
+       
         bool selected = false;
        // [SerializeField] LineRenderer SelectionIndicator;
         [SerializeField] GameObject SelectionIndicator;
@@ -15,7 +18,21 @@ namespace Swatantra.Inputs.Selection
         {
             // adding this selectable to AllSelectables in SelectionManager
             SelectionManager.AllSelectables.Add(this);
-            renderer = GetComponent<Renderer>();
+        }
+        private void Start()
+        {
+            EventManager.OnMultiCharacterController.AddListener(HandleMultiCharSelection);
+            EventManager.OnSingleCharacterController.AddListener(HandleSingleCharSelection);
+        }
+
+        private void HandleMultiCharSelection(bool arg0)
+        {
+            this.enabled = true;
+        }
+
+        private void HandleSingleCharSelection(bool arg0)
+        {
+            this.enabled = false;
         }
 
         void OnMouseDown()
