@@ -7,6 +7,9 @@ namespace Swatantra.Inputs
     public class CameraMovement : MonoBehaviour
     {
         [SerializeField] float CameraMovementSpeed = 10;
+
+        public bool MouseEdgeCameraMovement = false;
+
         [SerializeField] float PixelXGap = 100;
         [SerializeField] float PixelYGap = 75;
         
@@ -15,24 +18,27 @@ namespace Swatantra.Inputs
             float lh = Input.GetAxis("Horizontal");
             float lv = Input.GetAxis("Vertical");
             float ld = Input.GetAxis("Depth");
-
-            if(Input.mousePosition.x > Screen.width - PixelXGap)
+          
+            if (MouseEdgeCameraMovement)
             {
-                lh = 1;
+                if (Input.mousePosition.x > Screen.width - PixelXGap)
+                {
+                    lh = 1;
+                }
+                else if (Input.mousePosition.x < PixelXGap)
+                {
+                    lh = -1;
+                }
+                else if (Input.mousePosition.y > Screen.height - PixelYGap)
+                {
+                    lv = 1;
+                }
+                else if (Input.mousePosition.y < PixelYGap)
+                {
+                    lv = -1;
+                }
             }
-            else if(Input.mousePosition.x < PixelXGap)
-            {
-                lh = -1;
-            }
-            else if(Input.mousePosition.y > Screen.height - PixelYGap)
-            {
-                lv = 1;
-            }
-            else if (Input.mousePosition.y < PixelYGap)
-            {
-                lv = -1;
-            }
-
+            
             Vector3 movement = new Vector3(lh, ld, lv);
             movement.Normalize();
             transform.Translate(movement * CameraMovementSpeed * Time.deltaTime,Space.World);

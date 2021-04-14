@@ -32,6 +32,8 @@ namespace Swatantra.Inputs.Selection
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if(eventData.button!= PointerEventData.InputButton.Left) return;
+            
             if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
             {
                 SelectionManager.DeselectAll();
@@ -43,7 +45,7 @@ namespace Swatantra.Inputs.Selection
 
         public void OnDrag(PointerEventData eventData)
         {
-
+            if (eventData.button != PointerEventData.InputButton.Left) return;
 
             if (eventData.position.x < StartPosition.x)
             {
@@ -73,6 +75,7 @@ namespace Swatantra.Inputs.Selection
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left) return;
 
             SelectionBox.gameObject.SetActive(false);
             foreach (SelectableObject item in SelectionManager.AllSelectables)
@@ -86,6 +89,8 @@ namespace Swatantra.Inputs.Selection
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left) return;
+            
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventData, results);
 

@@ -19,6 +19,16 @@ namespace Swatantra.Inputs.Selection
 
         private void Start()
         {
+            CheckSelectionMode();
+        }
+
+        //private void OnValidate()
+        //{
+        //    CheckSelectionMode();
+        //}
+
+        void CheckSelectionMode()
+        {
             if (SingleCharacterControl)
             {
                 EventManager.OnSingleCharacterController.Invoke(true);

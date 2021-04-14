@@ -11,8 +11,6 @@ namespace Swatantra.Inputs.Selection
         public static bool isactive = true;
        
         bool selected = false;
-       // [SerializeField] LineRenderer SelectionIndicator;
-        [SerializeField] GameObject SelectionIndicator;
 
         private void Awake()
         {
@@ -37,6 +35,8 @@ namespace Swatantra.Inputs.Selection
 
         void OnMouseDown()
         {
+            if (!enabled) return;
+            
             if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
             {
                 if (!selected)
@@ -81,13 +81,18 @@ namespace Swatantra.Inputs.Selection
         public void SelectionEffect()
         {
             // SelectionIndicator.enabled = true;
-            SelectionIndicator.SetActive(true);
+            var outline = gameObject.AddComponent<Outline>();
+
+            outline.OutlineMode = Outline.Mode.OutlineAll;
+            outline.OutlineColor = Color.green;
+            outline.OutlineWidth = 3.5f;
+
         }
 
         public void DeselectEffect()
         {
             // SelectionIndicator.enabled = false;
-            SelectionIndicator.SetActive(false);
+            Destroy(GetComponent<Outline>());
         }
         #endregion
 

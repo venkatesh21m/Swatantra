@@ -1349,6 +1349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraMovementSpeed: 10
+  MouseEdgeCameraMovement: 0
   PixelXGap: 25
   PixelYGap: 25
 --- !u!1 &705507993
@@ -83422,8 +83423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03de1a0cfdbba7444b3e3163b255f694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SingleCharacterControl: 1
-  multiPlayerControl: 0
+  SingleCharacterControl: 0
+  multiPlayerControl: 1
   currentPlayer: {fileID: 1333439099}
 --- !u!4 &2062603979
 Transform:
