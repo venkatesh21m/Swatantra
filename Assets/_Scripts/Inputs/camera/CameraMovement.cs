@@ -6,13 +6,14 @@ namespace Swatantra.Inputs
 {
     public class CameraMovement : MonoBehaviour
     {
+        #region Variables
         [SerializeField] float CameraMovementSpeed = 10;
-
-        public bool MouseEdgeCameraMovement = false;
-
         [SerializeField] float PixelXGap = 100;
         [SerializeField] float PixelYGap = 75;
-        
+        [SerializeField] bool MouseEdgeCameraMovement = false;
+        #endregion
+
+        #region Unity Default Functions
         void Update()
         {
             float lh = Input.GetAxis("Horizontal");
@@ -44,5 +45,6 @@ namespace Swatantra.Inputs
             transform.Translate(movement * CameraMovementSpeed * Time.deltaTime,Space.World);
             transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, 10, 40), transform.position.z);
         }
+        #endregion
     }
 }

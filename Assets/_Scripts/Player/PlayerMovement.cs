@@ -9,26 +9,33 @@ namespace Swatantra.MovementSystems
 {
     public class PlayerMovement : MonoBehaviour
     {
+        #region References
+        private NavMeshAgent agent;
+        private Animator anim;
+        #endregion
 
-        NavMeshAgent agent;
-        Animator anim;
-
-        // Start is called before the first frame update
+        #region Unity Default Functions
+        
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             anim = GetComponentInChildren<Animator>();
 
         }
-
-       public void SetAgentDestination(Vector3 destination)
-        {
-            agent.SetDestination(destination);
-        }
-        // Update is called once per frame
+       
         void FixedUpdate()
         {
             anim.SetFloat("speed", agent.velocity.magnitude);
         }
+
+        #endregion
+
+        #region Event Handles
+        public void SetAgentDestination(Vector3 destination)
+        {
+            agent.SetDestination(destination);
+        }
+
+        #endregion
     }
 }

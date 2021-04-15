@@ -10,16 +10,22 @@ namespace Swatantra.Inputs.Selection
 {
     public class DragSelectionHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler,IPointerClickHandler
     {
+        #region Variables
         [SerializeField] Image SelectionBox;
-        Vector2 StartPosition;
-        Rect SelectionRect;
+        
+        private Vector2 StartPosition;
+        private Rect SelectionRect;
+        #endregion
 
+        #region Unity Default Methods
         private void Start()
         {
             EventManager.OnMultiCharacterController.AddListener(HandleMultiCharSelection);
             EventManager.OnSingleCharacterController.AddListener(HandleSingleCharSelection);
         }
+        #endregion
 
+        #region Event Handles
         private void HandleMultiCharSelection(bool arg0)
         {
             this.enabled = true;
@@ -29,7 +35,9 @@ namespace Swatantra.Inputs.Selection
         {
             this.enabled = false;
         }
+        #endregion
 
+        #region DragFunctionality
         public void OnBeginDrag(PointerEventData eventData)
         {
             if(eventData.button!= PointerEventData.InputButton.Left) return;
@@ -71,6 +79,19 @@ namespace Swatantra.Inputs.Selection
 
             SelectionBox.rectTransform.offsetMin = SelectionRect.min;
             SelectionBox.rectTransform.offsetMax = SelectionRect.max;
+
+            foreach (SelectableObject item in SelectionManager.AllSelectables)
+            {
+                if (SelectionRect.Contains(Camera.main.WorldToScreenPoint(item.transform.position)))
+                {
+                    item.EnableOutline();
+                }
+                else
+                {
+                    item.DisableOutline();
+                }
+            }
+
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -122,6 +143,8 @@ namespace Swatantra.Inputs.Selection
                 ExecuteEvents.Execute<IPointerClickHandler>(nextObject, eventData, (x, y) => { x.OnPointerClick((PointerEventData)y); });
             }
         }
+
+        #endregion
     }
 
 }

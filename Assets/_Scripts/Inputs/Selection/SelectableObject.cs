@@ -2,41 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Swatantra.Events;
-using System;
 
 namespace Swatantra.Inputs.Selection
 {
     public class SelectableObject : MonoBehaviour
     {
-        public static bool isactive = true;
-       
-        bool selected = false;
+        #region Variables
+        private bool selected = false;
+        
+        private Outline outline;
+        
+        #endregion
+
+        #region Unity Default Functions
 
         private void Awake()
         {
             // adding this selectable to AllSelectables in SelectionManager
             SelectionManager.AllSelectables.Add(this);
         }
+       
         private void Start()
         {
             EventManager.OnMultiCharacterController.AddListener(HandleMultiCharSelection);
             EventManager.OnSingleCharacterController.AddListener(HandleSingleCharSelection);
-        }
 
-        private void HandleMultiCharSelection(bool arg0)
-        {
-            this.enabled = true;
-        }
+            OutlineEffect(Color.white);
+            outline.enabled = false;
 
-        private void HandleSingleCharSelection(bool arg0)
-        {
-            this.enabled = false;
         }
 
         void OnMouseDown()
         {
             if (!enabled) return;
-            
+
             if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
             {
                 if (!selected)
@@ -55,6 +54,33 @@ namespace Swatantra.Inputs.Selection
             }
         }
 
+        void OnMouseEnter()
+        {
+            EnableOutline();
+        }
+
+        void OnMouseExit()
+        {
+            if (!selected)
+                DisableOutline();
+        }
+
+        #endregion
+
+        #region Event Hadles
+        private void HandleMultiCharSelection(bool arg0)
+        {
+            this.enabled = true;
+        }
+
+        private void HandleSingleCharSelection(bool arg0)
+        {
+            this.enabled = false;
+        }
+
+        #endregion
+
+        #region Selection Functions
         public void OnSelect()
         {
             if (!selected)
@@ -69,34 +95,63 @@ namespace Swatantra.Inputs.Selection
             }
         }
 
+
         public void OnDeselect()
         {
             selected = false;
             DeselectEffect();
         }
 
+        #endregion
 
         #region Effects
 
         public void SelectionEffect()
         {
             // SelectionIndicator.enabled = true;
-            var outline = gameObject.AddComponent<Outline>();
-
-            outline.OutlineMode = Outline.Mode.OutlineAll;
-            outline.OutlineColor = Color.green;
-            outline.OutlineWidth = 3.5f;
-
+            changeOutlineColor(Color.green);
         }
 
         public void DeselectEffect()
         {
             // SelectionIndicator.enabled = false;
-            Destroy(GetComponent<Outline>());
+            DisableOutline();
+            changeOutlineColor(Color.white);
+
         }
         #endregion
 
+        #region Outline
+        public void OutlineEffect(Color color, float width = 3.5f)
+        {
+            outline = gameObject.AddComponent<Outline>();
 
+            outline.OutlineMode = Outline.Mode.OutlineAll;
+            outline.OutlineColor = color;
+            outline.OutlineWidth = width;
+        }
+
+        void changeOutlineColor(Color color)
+        {
+            outline.OutlineColor = color;
+        }
+
+        void ChangeOutlineWidth(float width)
+        {
+            outline.OutlineWidth = width;
+        }
+
+        public  void EnableOutline()
+        {
+            outline.enabled = true;
+        }
+
+        public void DisableOutline()
+        {
+            outline.enabled = false;
+        }
+
+        #endregion
 
     }
 }

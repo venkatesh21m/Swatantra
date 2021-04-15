@@ -9,23 +9,23 @@ namespace Swatantra.Inputs.Selection
 {
     public class SelectionManager : MonoBehaviour
     {
-        public bool SingleCharacterControl;
-        public bool multiPlayerControl;
+        #region Variables
+        
+        [Header("Choose type of Mode")]
+        [SerializeField] bool SingleCharacterControl;
+        [SerializeField] bool multiPlayerControl;
 
-        public MovementSystems.PlayerMovement currentPlayer;
+        [SerializeField] MovementSystems.PlayerMovement currentPlayer;
 
         public static HashSet<SelectableObject> AllSelectables = new HashSet<SelectableObject>();
         public static HashSet<SelectableObject> CurrentlySelected = new HashSet<SelectableObject>();
+
+        #endregion
 
         private void Start()
         {
             CheckSelectionMode();
         }
-
-        //private void OnValidate()
-        //{
-        //    CheckSelectionMode();
-        //}
 
         void CheckSelectionMode()
         {
@@ -42,6 +42,9 @@ namespace Swatantra.Inputs.Selection
             }
         }
 
+
+        #region Events Handle
+
         private static void HandleMultiMovetoThisLocationEvent(Vector3 targetlocation)
         {
             foreach (SelectableObject item in CurrentlySelected)
@@ -55,6 +58,9 @@ namespace Swatantra.Inputs.Selection
             currentPlayer.SetAgentDestination(targetPos);
         }
 
+        #endregion
+
+        #region selection and deselection Functions
         /// <summary>
         /// To cler all currently selected objects
         /// </summary>
@@ -69,7 +75,10 @@ namespace Swatantra.Inputs.Selection
             CurrentlySelected.Clear();
         }
 
-
+        /// <summary>
+        /// to deselect a single character
+        /// </summary>
+        /// <param name="objectToDeselect"></param>
         public static void Deselect(SelectableObject objectToDeselect)
         {
             if (CurrentlySelected.Count == 0) return;
@@ -84,5 +93,7 @@ namespace Swatantra.Inputs.Selection
                 }
             }
         }
+
+        #endregion
     }
 }
