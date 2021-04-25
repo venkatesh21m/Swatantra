@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Swatantra.Events;
-namespace Swatantra.MovementSystems
+namespace Swatantra.Helpers
 {
     public class TargetIndicatorScipt : MonoBehaviour
     {

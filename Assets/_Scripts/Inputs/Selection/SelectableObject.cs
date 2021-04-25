@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Swatantra.Events;
-
+using Swatantra;
 namespace Swatantra.Inputs.Selection
 {
     public class SelectableObject : MonoBehaviour
     {
         #region Variables
         private bool selected = false;
-        
+        private bool singlePlayerControl = false;
         private Outline outline;
-        
+        private LineRenderer lineRenderer;
         #endregion
 
         #region Unity Default Functions
@@ -29,6 +29,10 @@ namespace Swatantra.Inputs.Selection
 
             OutlineEffect(Color.white);
             outline.enabled = false;
+
+            lineRenderer = GetComponent<LineRenderer>();
+            Helpers.CircleDrawer.DrawCircle(lineRenderer, 0.75f, 0.05f);
+            lineRenderer.enabled = false;
 
         }
 
@@ -56,13 +60,21 @@ namespace Swatantra.Inputs.Selection
 
         void OnMouseEnter()
         {
-            EnableOutline();
+
+            if (!selected)
+                EnableOutline();
+            else
+                changeOutlineColor(Color.white);
         }
 
         void OnMouseExit()
         {
+
             if (!selected)
                 DisableOutline();
+            else
+                changeOutlineColor(Color.green);
+
         }
 
         #endregion
@@ -110,6 +122,7 @@ namespace Swatantra.Inputs.Selection
         {
             // SelectionIndicator.enabled = true;
             changeOutlineColor(Color.green);
+            lineRenderer.enabled = true;
         }
 
         public void DeselectEffect()
@@ -117,12 +130,12 @@ namespace Swatantra.Inputs.Selection
             // SelectionIndicator.enabled = false;
             DisableOutline();
             changeOutlineColor(Color.white);
-
+            lineRenderer.enabled = false;
         }
         #endregion
 
         #region Outline
-        public void OutlineEffect(Color color, float width = 3.5f)
+        public void OutlineEffect(Color color, float width = 2.5f)
         {
             outline = gameObject.AddComponent<Outline>();
 

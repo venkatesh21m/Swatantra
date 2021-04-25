@@ -32,6 +32,19 @@ namespace Swatantra.Inputs
                     }
                 }
             }
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, RaymaxDistance))
+                {
+                    if (hit.collider.CompareTag("Walkable"))
+                    {
+                        if(!Input.GetKey(KeyCode.LeftControl))
+                            Selection.SelectionManager.DeselectAll();
+                    }
+                }
+            }
         }
     }
 }

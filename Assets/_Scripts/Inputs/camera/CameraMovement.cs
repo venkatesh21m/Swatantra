@@ -7,10 +7,11 @@ namespace Swatantra.Inputs
     public class CameraMovement : MonoBehaviour
     {
         #region Variables
+
         [SerializeField] float CameraMovementSpeed = 10;
         [SerializeField] float PixelXGap = 100;
         [SerializeField] float PixelYGap = 75;
-        [SerializeField] bool MouseEdgeCameraMovement = false;
+        [SerializeField] bool ScreenEdgeCameraMovement = false;
         #endregion
 
         #region Unity Default Functions
@@ -20,7 +21,7 @@ namespace Swatantra.Inputs
             float lv = Input.GetAxis("Vertical");
             float ld = Input.GetAxis("Depth");
           
-            if (MouseEdgeCameraMovement)
+            if (ScreenEdgeCameraMovement)
             {
                 if (Input.mousePosition.x > Screen.width - PixelXGap)
                 {
@@ -41,6 +42,7 @@ namespace Swatantra.Inputs
             }
             
             Vector3 movement = new Vector3(lh, ld, lv);
+
             movement.Normalize();
             transform.Translate(movement * CameraMovementSpeed * Time.deltaTime,Space.World);
             transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, 10, 40), transform.position.z);

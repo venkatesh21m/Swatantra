@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b878394809008e449bc2cdf6163103d5, type: 3}
+  m_Name: Venkatesh
+  m_EditorClassIdentifier: 
+  CharacterName: Venkatesh
+  MaxHealth: 0
+  currentHealth: 0
+  maxStamina: 0
+  CurrentStamina: 0
+  maxDamageAmount: 0
+  currentDamageAmount: 0
+  MaxDefence: 0
+  currentDefence: 0
+  MaxOxygen: 0
+  currentOxygen: 0
+  Hunger: 0
+  thirst: 0
+  Mood: 0
+  Efficiency: 0
+  movementSpeed: 0
+  lineofSight: 0
+  sheltered: 0
+  shelterID: 

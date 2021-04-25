@@ -15,7 +15,8 @@ namespace Swatantra.Inputs.Selection
         [SerializeField] bool SingleCharacterControl;
         [SerializeField] bool multiPlayerControl;
 
-        [SerializeField] MovementSystems.PlayerMovement currentPlayer;
+        [Space]
+        [SerializeField] MovementSystems.Movement currentPlayer;
 
         public static HashSet<SelectableObject> AllSelectables = new HashSet<SelectableObject>();
         public static HashSet<SelectableObject> CurrentlySelected = new HashSet<SelectableObject>();
@@ -33,15 +34,52 @@ namespace Swatantra.Inputs.Selection
             {
                 EventManager.OnSingleCharacterController.Invoke(true);
                 EventManager.OnMoveTothisLocationEvent.AddListener(SetDestinationToMainCharacter);
-
+                EventManager.OnMoveTothisLocationEvent.RemoveListener(HandleMultiMovetoThisLocationEvent);
+                currentPlayer.GetComponent<LineRenderer>().enabled = true;
             }
             else if (multiPlayerControl)
             {
                 EventManager.OnMultiCharacterController.Invoke(true);
                 EventManager.OnMoveTothisLocationEvent.AddListener(HandleMultiMovetoThisLocationEvent);
+                EventManager.OnMoveTothisLocationEvent.RemoveListener(SetDestinationToMainCharacter);
+                currentPlayer.GetComponent<LineRenderer>().enabled = false;
             }
         }
 
+        public void OnsingleModeControlSelection()
+        {
+            DeselectAll();
+
+            SingleCharacterControl = true;
+            multiPlayerControl = false;
+            CheckSelectionMode();
+        }
+
+        public void OnMultiModeControlSelection()
+        {
+            SingleCharacterControl = false;
+            multiPlayerControl = true;
+            CheckSelectionMode();
+        }
+
+
+        public void Ontogglemultiselection(bool toggle)
+        {
+            Debug.LogError(toggle);
+            if(toggle)
+            {
+                multiPlayerControl = true;
+                SingleCharacterControl = false;
+            }
+            else
+            {
+                DeselectAll();
+
+                SingleCharacterControl = true;
+                multiPlayerControl = false;
+            }
+            CheckSelectionMode();
+        }
 
         #region Events Handle
 
@@ -49,7 +87,7 @@ namespace Swatantra.Inputs.Selection
         {
             foreach (SelectableObject item in CurrentlySelected)
             {
-               item.GetComponent<MovementSystems.PlayerMovement>().SetAgentDestination(targetlocation);
+               item.GetComponent<MovementSystems.Movement>().SetAgentDestination(targetlocation);
             }
         }
 
