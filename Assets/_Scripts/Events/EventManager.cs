@@ -30,12 +30,12 @@ namespace Swatantra.Events
         /// <summary>
         /// To Broadcast Single character Mode selection 
         /// </summary>
-        public static Events.BooleanEvent OnSingleCharacterController = new Events.BooleanEvent();
+        public static Events.TriggerEvent OnSingleCharacterController = new Events.TriggerEvent();
 
         /// <summary>
         /// To broadcast Multi character mode selection
         /// </summary>
-        public static Events.BooleanEvent OnMultiCharacterController = new Events.BooleanEvent();
+        public static Events.TriggerEvent OnMultiCharacterController = new Events.TriggerEvent();
 
         #endregion
     }

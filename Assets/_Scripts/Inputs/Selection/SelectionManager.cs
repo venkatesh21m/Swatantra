@@ -29,6 +29,16 @@ namespace Swatantra.Inputs.Selection
             CheckSelectionMode();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (multiPlayerControl)
+                    OnsingleModeControlSelection();
+                else
+                    OnMultiModeControlSelection();
+            }
+        }
         #endregion
 
         #region control mode selection functions
@@ -36,14 +46,14 @@ namespace Swatantra.Inputs.Selection
         {
             if (SingleCharacterControl)
             {
-                EventManager.OnSingleCharacterController.Invoke(true);
+                EventManager.OnSingleCharacterController.Invoke();
                 EventManager.OnMoveTothisLocationEvent.AddListener(SetDestinationToMainCharacter);
                 EventManager.OnMoveTothisLocationEvent.RemoveListener(HandleMultiMovetoThisLocationEvent);
                 currentPlayer.GetComponent<LineRenderer>().enabled = true;
             }
             else if (multiPlayerControl)
             {
-                EventManager.OnMultiCharacterController.Invoke(true);
+                EventManager.OnMultiCharacterController.Invoke();
                 EventManager.OnMoveTothisLocationEvent.AddListener(HandleMultiMovetoThisLocationEvent);
                 EventManager.OnMoveTothisLocationEvent.RemoveListener(SetDestinationToMainCharacter);
                 currentPlayer.GetComponent<LineRenderer>().enabled = false;
@@ -69,7 +79,6 @@ namespace Swatantra.Inputs.Selection
 
         public void Ontogglemultiselection(bool toggle)
         {
-            Debug.LogError(toggle);
             if(toggle)
             {
                 multiPlayerControl = true;

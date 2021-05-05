@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Swatantra.Events;
+using System;
 
 namespace Swatantra.Inputs
 {
@@ -12,9 +14,17 @@ namespace Swatantra.Inputs
         [SerializeField] float PixelXGap = 100;
         [SerializeField] float PixelYGap = 75;
         [SerializeField] bool ScreenEdgeCameraMovement = false;
+
         #endregion
 
         #region Unity Default Functions
+
+        private void Start()
+        {
+            EventManager.OnMultiCharacterController.AddListener(HandleMultiCharSelection);
+            EventManager.OnSingleCharacterController.AddListener(HandleSingleCharSelection);
+        }
+
         void Update()
         {
             float lh = Input.GetAxis("Horizontal");
@@ -46,6 +56,18 @@ namespace Swatantra.Inputs
             movement.Normalize();
             transform.Translate(movement * CameraMovementSpeed * Time.deltaTime,Space.World);
             transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, 10, 40), transform.position.z);
+        }
+        #endregion
+
+        #region Event Handles
+        private void HandleSingleCharSelection()
+        {
+            enabled = false;
+        }
+
+        private void HandleMultiCharSelection()
+        {
+            enabled = true;
         }
         #endregion
     }

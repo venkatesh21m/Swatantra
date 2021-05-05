@@ -26,12 +26,12 @@ namespace Swatantra.Inputs.Selection
         #endregion
 
         #region Event Handles
-        private void HandleMultiCharSelection(bool arg0)
+        private void HandleMultiCharSelection()
         {
             this.enabled = true;
         }
 
-        private void HandleSingleCharSelection(bool arg0)
+        private void HandleSingleCharSelection()
         {
             this.enabled = false;
         }
