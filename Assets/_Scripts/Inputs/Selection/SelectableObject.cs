@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Swatantra.Events;
 using Swatantra;
+
 namespace Swatantra.Inputs.Selection
 {
     public class SelectableObject : MonoBehaviour
@@ -10,8 +11,12 @@ namespace Swatantra.Inputs.Selection
         #region Variables
         private bool selected = false;
         private bool singlePlayerControl = false;
+        #endregion
+
+        #region cached References
         private Outline outline;
         private LineRenderer lineRenderer;
+        private Stats.characterStats.CharacterStats characterStats;
         #endregion
 
         #region Unity Default Functions
@@ -34,6 +39,7 @@ namespace Swatantra.Inputs.Selection
             Helpers.CircleDrawer.DrawCircle(lineRenderer, 0.75f, 0.05f);
             lineRenderer.enabled = false;
 
+            characterStats = GetComponent<Stats.characterStats.CharacterStats>();
         }
 
         void OnMouseDown()
@@ -60,11 +66,13 @@ namespace Swatantra.Inputs.Selection
 
         void OnMouseEnter()
         {
-
             if (!selected)
                 EnableOutline();
             else
                 changeOutlineColor(Color.white);
+
+            //Rise event to show character details on the UI
+            EventManager.OnHoverOnCharacterEvent.Invoke(characterStats.CharacterDefinition);
         }
 
         void OnMouseExit()
@@ -75,6 +83,8 @@ namespace Swatantra.Inputs.Selection
             else
                 changeOutlineColor(Color.green);
 
+            //Rise event to disable character details on the UI
+            EventManager.onHoverExitOnCharacterEvent.Invoke();
         }
 
         #endregion

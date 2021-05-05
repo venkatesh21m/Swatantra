@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: RajyaLaxmi
   gender: 1
-  MaxHealth: 0
-  currentHealth: 0
+  MaxHealth: 100
+  currentHealth: 100
   maxStamina: 0
   CurrentStamina: 0
   maxDamageAmount: 0
@@ -24,6 +24,7 @@ MonoBehaviour:
   currentDefence: 0
   MaxOxygen: 0
   currentOxygen: 0
+  Wealth: 0
   Hunger: 0
   thirst: 0
   Mood: 0

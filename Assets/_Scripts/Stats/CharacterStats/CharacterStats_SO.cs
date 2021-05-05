@@ -58,6 +58,8 @@ namespace Swatantra.Stats.characterStats
         [Tooltip("The current Defence of the Character")]
         public float currentDefence;
 
+
+
         /// <summary>
         /// for oxygen amount
         /// </summary>
@@ -66,6 +68,12 @@ namespace Swatantra.Stats.characterStats
         public float MaxOxygen;
         [Tooltip("The current Oxygen amount of the Character")]
         public float currentOxygen;
+
+
+        [Header("Wealth")]
+        [Tooltip("The amount of money the Character has")]
+        public float Wealth;
+
 
         /// <summary>
         /// basic stats

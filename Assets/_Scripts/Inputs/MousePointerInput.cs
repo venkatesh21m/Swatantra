@@ -6,11 +6,17 @@ using Swatantra.Events;
 
 namespace Swatantra.Inputs
 {
-
     public class MousePointerInput : MonoBehaviour
     {
+        #region Variables
         [SerializeField] float RaymaxDistance;
+        #endregion
+
+        #region cache references
         Camera mainCamera;
+        #endregion
+
+        #region Default Unity functions
         // Start is called before the first frame update
         void Start()
         {
@@ -46,5 +52,6 @@ namespace Swatantra.Inputs
                 }
             }
         }
+        #endregion
     }
 }

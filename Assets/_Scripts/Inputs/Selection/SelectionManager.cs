@@ -23,11 +23,15 @@ namespace Swatantra.Inputs.Selection
 
         #endregion
 
+        #region Default Unity Functions
         private void Start()
         {
             CheckSelectionMode();
         }
 
+        #endregion
+
+        #region control mode selection functions
         void CheckSelectionMode()
         {
             if (SingleCharacterControl)
@@ -80,6 +84,8 @@ namespace Swatantra.Inputs.Selection
             }
             CheckSelectionMode();
         }
+
+        #endregion
 
         #region Events Handle
 

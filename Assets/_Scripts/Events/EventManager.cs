@@ -12,17 +12,32 @@ namespace Swatantra.Events
         /// <summary>
         /// To handle click to move interation
         /// </summary>
-        public static Events.OnMouseClickEvent OnMoveTothisLocationEvent = new Events.OnMouseClickEvent();
+        public static Events.Vector3Event OnMoveTothisLocationEvent = new Events.Vector3Event();
+
+
+        #region character stats related events
         
+        /// <summary>
+        /// this event is for when mouse is hovered on character
+        /// </summary>
+        public static Events.CharacterStatsEvent OnHoverOnCharacterEvent = new Events.CharacterStatsEvent();
+        public static Events.TriggerEvent onHoverExitOnCharacterEvent = new Events.TriggerEvent();
+        
+        #endregion
+
+        #region Character control mode related events
+
         /// <summary>
         /// To Broadcast Single character Mode selection 
         /// </summary>
-        public static Events.OnBoolEvent OnSingleCharacterController = new Events.OnBoolEvent();
+        public static Events.BooleanEvent OnSingleCharacterController = new Events.BooleanEvent();
 
         /// <summary>
         /// To broadcast Multi character mode selection
         /// </summary>
-        public static Events.OnBoolEvent OnMultiCharacterController = new Events.OnBoolEvent();
+        public static Events.BooleanEvent OnMultiCharacterController = new Events.BooleanEvent();
+
+        #endregion
     }
 
 }

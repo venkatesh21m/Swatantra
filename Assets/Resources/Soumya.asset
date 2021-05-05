@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Soumya
   gender: 1
-  MaxHealth: 0
-  currentHealth: 0
-  maxStamina: 0
-  CurrentStamina: 0
-  maxDamageAmount: 0
-  currentDamageAmount: 0
-  MaxDefence: 0
-  currentDefence: 0
-  MaxOxygen: 0
-  currentOxygen: 0
+  MaxHealth: 100
+  currentHealth: 100
+  maxStamina: 100
+  CurrentStamina: 100
+  maxDamageAmount: 10
+  currentDamageAmount: 10
+  MaxDefence: 10
+  currentDefence: 10
+  MaxOxygen: 100
+  currentOxygen: 100
+  Wealth: 100
   Hunger: 0
   thirst: 0
   Mood: 0
