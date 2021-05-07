@@ -33,7 +33,8 @@ namespace Swatantra.MovementSystems
         #region Event Handles
         public void SetAgentDestination(Vector3 destination)
         {
-            agent.SetDestination(destination);
+            if(agent.enabled)
+                agent.SetDestination(destination);
         }
 
         #endregion

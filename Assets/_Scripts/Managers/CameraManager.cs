@@ -10,8 +10,11 @@ namespace Swatantra.Managers
     public class CameraManager : MonoBehaviour
     {
         #region references
-        public CinemachineVirtualCamera MultiCharacterControlCamera;
-        public CinemachineVirtualCamera SingleCharacterControlCamera;
+        [SerializeField] CinemachineFreeLook MultiCharacterControlCamera;
+        [SerializeField] CinemachineVirtualCamera SingleCharacterControlCamera;
+
+        [Space]
+        [SerializeField] Transform MulticamTarget;
         #endregion
 
         #region Unity Default Functions
@@ -43,9 +46,9 @@ namespace Swatantra.Managers
 
         void SetMultiCharacterControlCameraPosition()
         {
-            Vector3 pos = SingleCharacterControlCamera.transform.position;
-            pos.y = 25f;
-            MultiCharacterControlCamera.transform.position = pos;
+            Vector3 pos = SingleCharacterControlCamera.Follow.position;
+            pos.y = 0;
+            MulticamTarget.transform.position = pos;
         }
         #endregion
     }

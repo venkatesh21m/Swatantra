@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Swatantra.Events;
+using Swatantra.Inputs;
 using System;
 
 namespace Swatantra.Inputs
@@ -27,9 +28,8 @@ namespace Swatantra.Inputs
 
         void Update()
         {
-            float lh = Input.GetAxis("Horizontal");
-            float lv = Input.GetAxis("Vertical");
-            float ld = Input.GetAxis("Depth");
+            float lh = InputManager.MovementVector.x;
+            float lv = InputManager.MovementVector.z;
           
             if (ScreenEdgeCameraMovement)
             {
@@ -51,11 +51,11 @@ namespace Swatantra.Inputs
                 }
             }
             
-            Vector3 movement = new Vector3(lh, ld, lv);
+            Vector3 movement = new Vector3(lh, 0, lv);
 
             movement.Normalize();
             transform.Translate(movement * CameraMovementSpeed * Time.deltaTime,Space.World);
-            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, 10, 40), transform.position.z);
+
         }
         #endregion
 
