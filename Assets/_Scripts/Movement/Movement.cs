@@ -12,6 +12,7 @@ namespace Swatantra.MovementSystems
         #region References
         private NavMeshAgent agent;
         private Animator anim;
+
         #endregion
 
         #region Unity Default Functions

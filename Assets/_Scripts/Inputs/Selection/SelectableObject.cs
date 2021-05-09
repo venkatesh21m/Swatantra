@@ -64,6 +64,32 @@ namespace Swatantra.Inputs.Selection
             }
         }
 
+        //private void OnMouseOver()
+        //{
+        //    if (!enabled) return;
+        //    if (!InputManager.selection) return;
+
+        //    if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
+        //    {
+        //        if (!selected)
+        //        {
+        //            SelectionManager.DeselectAll();
+        //            OnSelect();
+        //        }
+        //        else
+        //        {
+        //            SelectionManager.Deselect(this);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        OnSelect();
+        //    }
+
+        //    InputManager.selection = false;
+
+        //}
+
         void OnMouseEnter()
         {
             if (!selected)

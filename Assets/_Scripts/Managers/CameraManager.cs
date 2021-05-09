@@ -42,7 +42,7 @@ namespace Swatantra.Managers
 
         #endregion
 
-        #region Normal functions
+        #region functions
 
         void SetMultiCharacterControlCameraPosition()
         {
@@ -50,6 +50,7 @@ namespace Swatantra.Managers
             pos.y = 0;
             MulticamTarget.transform.position = pos;
         }
+
         #endregion
     }
 }

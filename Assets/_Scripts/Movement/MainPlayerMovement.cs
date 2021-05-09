@@ -14,16 +14,19 @@ namespace Swatantra.MovementSystems
         [SerializeField] float movementSpeed;
 
 
-        private Vector3 velocity;
+        private Vector3 movementInput;
         private bool usingthis;
+        private float speed;
         #endregion
 
         #region Cache variables
       
         private NavMeshAgent agent;
         private Animator anim;
-        private Rigidbody rb;
-        
+        private Movement movement;
+
+        private Transform cameraTransform;
+
         #endregion
 
         #region Unity Default Functions
@@ -31,8 +34,8 @@ namespace Swatantra.MovementSystems
         {
             agent = GetComponent<NavMeshAgent>();
             anim = GetComponentInChildren<Animator>();
-            rb = GetComponent<Rigidbody>();
-
+            movement = GetComponent<Movement>();
+            cameraTransform = Camera.main.transform;
             EventManager.OnMultiCharacterController.AddListener(HandleMultiCharSelection);
             EventManager.OnSingleCharacterController.AddListener(HandleSingleCharSelection);
         }
@@ -40,36 +43,49 @@ namespace Swatantra.MovementSystems
         // Update is called once per frame
         void Update()
         {
-            if(InputManager.MovementVector.magnitude > 0)
+            if(InputManager.MovementVector.magnitude > 0.25f)
             {
-                usingthis = true;
-                velocity = Vector3.Slerp(velocity,InputManager.MovementVector, .02f);
-                agent.enabled = false;
+                if (agent.enabled)
+                {
+                    movement.enabled = false;
+                    speed = agent.velocity.magnitude;
+                    agent.enabled = false;
+                    usingthis = true;
+                }
+                movementInput = Vector3.Slerp(movementInput,InputManager.MovementVector, .02f);
+                speed = Mathf.Lerp(speed, movementSpeed, 0.005f);
             }
             else
             {
-                velocity = Vector3.Slerp(velocity, Vector3.zero, .002f);
+                movementInput = Vector3.Slerp(movementInput, Vector3.zero,0.002f);
+                speed = Mathf.Lerp(speed, 0, 0.02f);
 
-                if(velocity.magnitude < 1f)
+                if(InputManager.MovementVector.magnitude < 0.025f)
                 {
                     usingthis = false;
                     agent.enabled = true;
+                    movement.enabled = true;
                 }
                 return;
             }
-        }
 
-        private void FixedUpdate()
-        {
-            if (!usingthis) return;
+            Vector3 cameraForward = cameraTransform.forward;
+            cameraForward.y = 0;
 
-            rb.velocity = velocity * movementSpeed * Time.deltaTime;
-           
-            velocity.Normalize();
-            Quaternion rot = Quaternion.LookRotation(velocity);
-            rb.rotation = Quaternion.Slerp(transform.rotation, rot, .5f);
-            
-            anim.SetFloat("speed", rb.velocity.magnitude);
+            Quaternion cameraRelativeRotation = Quaternion.FromToRotation(Vector3.forward, cameraForward);
+            Vector3 lookToward = cameraRelativeRotation * movementInput;
+
+            if (speed > 0)
+            {
+                Ray lookRay = new Ray(transform.position, lookToward);
+
+                //transform.LookAt(lookRay.GetPoint(1));
+                Vector3 relativepostion = lookRay.GetPoint(1) - transform.position;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativepostion),0.02f) ;
+
+                transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
+                anim.SetFloat("speed", speed);
+            }
         }
         #endregion
 

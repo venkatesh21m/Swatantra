@@ -4,10 +4,11 @@ using UnityEngine;
 using Swatantra.Events;
 using Swatantra.Inputs;
 using System;
+using UnityEngine.InputSystem;
 
 namespace Swatantra.Inputs
 {
-    public class CameraMovement : MonoBehaviour
+    public class CameraTargetMovement : MonoBehaviour
     {
         #region Variables
 
@@ -18,19 +19,27 @@ namespace Swatantra.Inputs
 
         #endregion
 
+        #region cache references
+        Transform cameraTransform;
+        #endregion
+
+
         #region Unity Default Functions
 
         private void Start()
         {
+            cameraTransform = Camera.main.transform;
+
             EventManager.OnMultiCharacterController.AddListener(HandleMultiCharSelection);
             EventManager.OnSingleCharacterController.AddListener(HandleSingleCharSelection);
+
         }
 
         void Update()
         {
             float lh = InputManager.MovementVector.x;
             float lv = InputManager.MovementVector.z;
-          
+
             if (ScreenEdgeCameraMovement)
             {
                 if (Input.mousePosition.x > Screen.width - PixelXGap)
@@ -52,10 +61,20 @@ namespace Swatantra.Inputs
             }
             
             Vector3 movement = new Vector3(lh, 0, lv);
-
             movement.Normalize();
-            transform.Translate(movement * CameraMovementSpeed * Time.deltaTime,Space.World);
+            
+            Vector3 cameraForward = cameraTransform.forward;
+            cameraForward.y = 0;
+            Quaternion cameraRelativeRotation = Quaternion.FromToRotation(Vector3.forward, cameraForward);
+            Vector3 lookToward = cameraRelativeRotation * movement;
 
+            if(movement.sqrMagnitude > 0)
+            {
+                Ray lookRay = new Ray(transform.position, lookToward);
+                transform.LookAt(lookRay.GetPoint(1));
+                
+                transform.Translate(transform.forward* CameraMovementSpeed * Time.deltaTime,Space.World);
+            }
         }
         #endregion
 

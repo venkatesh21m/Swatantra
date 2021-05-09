@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Swatantra.Events;
 
 
@@ -24,6 +26,8 @@ namespace Swatantra.Inputs
         void Start()
         {
             mainCamera = Camera.main;
+            
+            Cursor.lockState = CursorLockMode.None;
         }
 
         void Update()
@@ -49,21 +53,86 @@ namespace Swatantra.Inputs
                 {
                     if (hit.collider.CompareTag("Walkable"))
                     {
-                        if(!Input.GetKey(KeyCode.LeftControl))
+                        if (!Input.GetKey(KeyCode.LeftControl))
                             Selection.SelectionManager.DeselectAll();
                     }
                 }
             }
             #endregion
 
-            #region Axis Inputs
-            float lh = Input.GetAxis("Horizontal");
-            float lv = Input.GetAxis("Vertical");
-
-            MovementVector.x = lh;
-            MovementVector.z = lv;
-            #endregion
+            MovementVector.x = Input.GetAxis("Horizontal");
+            MovementVector.z = Input.GetAxis("Vertical");
         }
+
         #endregion
+
+        //#region Input Events
+        //public void OnMovement(InputAction.CallbackContext value)
+        //{
+        //    Vector2 inputMovement = value.ReadValue<Vector2>();
+        //    MovementVector.x = inputMovement.x;
+        //    MovementVector.z = inputMovement.y;
+        //}
+
+        //public static void OnCurserInput(InputAction.CallbackContext value)
+        //{
+        //    CurserInput = value.ReadValue<Vector2>();
+        //}
+
+
+        //public void onRightMouseButton(InputAction.CallbackContext value)
+        //{
+        //    if (value.performed)
+        //    {
+        //        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        //        RaycastHit hit;
+        //        if (Physics.Raycast(ray, out hit, RaymaxDistance))
+        //        {
+        //            if (hit.collider.CompareTag("Walkable"))
+        //            {
+        //                EventManager.OnMoveTothisLocationEvent.Invoke(hit.point);
+        //            }
+        //        }
+        //    }
+        //}
+
+        //public void onLeftMouseButton(InputAction.CallbackContext value)
+        //{
+        //    if (value.performed)
+        //    {
+        //        selection = true;
+
+        //        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        //        RaycastHit hit;
+        //        if (Physics.Raycast(ray, out hit, RaymaxDistance))
+        //        {
+        //            if (hit.collider.CompareTag("Walkable"))
+        //            {
+        //                if (!Input.GetKey(KeyCode.LeftControl))
+        //                    Selection.SelectionManager.DeselectAll();
+        //            }
+        //        }
+        //    }
+        //    //if (value.performed)
+        //    //{
+        //    //    selection = false;
+        //    //}
+        //}
+
+        //public void OnInputControlChange(PlayerInput playerInput)
+        //{
+        //    switch (playerInput.currentControlScheme)
+        //    {
+        //        case "GamePad":
+        //            CustomCurser.gamepad = true;
+        //            break;
+        //        case "KeyboardAndMouse":
+        //            CustomCurser.gamepad = false;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
+        //#endregion
     }
 }

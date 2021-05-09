@@ -76,7 +76,6 @@ namespace Swatantra.Inputs.Selection
             CheckSelectionMode();
         }
 
-
         public void Ontogglemultiselection(bool toggle)
         {
             if(toggle)
