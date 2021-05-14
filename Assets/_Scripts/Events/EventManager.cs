@@ -38,6 +38,9 @@ namespace Swatantra.Events
         public static Events.TriggerEvent OnMultiCharacterController = new Events.TriggerEvent();
 
         #endregion
+
+
+        public static Events.CurrentCharacterEvent OnCurrentCharacterSelection = new Events.CurrentCharacterEvent();
     }
 
 }

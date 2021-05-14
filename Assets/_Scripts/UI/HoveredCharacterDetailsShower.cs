@@ -27,8 +27,8 @@ namespace Swatantra.UI
         {
             Events.EventManager.OnHoverOnCharacterEvent.AddListener(ShowCharacterDetails);
             Events.EventManager.onHoverExitOnCharacterEvent.AddListener(DisableCharacterDetails);
-            if(gameObject.activeSelf)
-                gameObject.SetActive(false);
+            //    if(gameObject.activeSelf)
+            //        gameObject.SetActive(false);
         }
 
         private void OnDestroy()

@@ -4,7 +4,7 @@ using UnityEngine;
 using Swatantra.Events;
 using Swatantra.Inputs;
 using System;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
 
 namespace Swatantra.Inputs
 {
@@ -76,6 +76,7 @@ namespace Swatantra.Inputs
                 transform.Translate(transform.forward* CameraMovementSpeed * Time.deltaTime,Space.World);
             }
         }
+
         #endregion
 
         #region Event Handles

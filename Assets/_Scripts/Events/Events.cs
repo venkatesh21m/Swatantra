@@ -31,6 +31,7 @@ namespace Swatantra.Events
         /// event for handing all events which passes Characterstats_SO 
         /// </summary>
         [System.Serializable] public class CharacterStatsEvent : UnityEvent<Stats.characterStats.CharacterStats_SO> { };
+        [System.Serializable] public class CurrentCharacterEvent : UnityEvent<MovementSystems.Movement> { };
 
     }
 }

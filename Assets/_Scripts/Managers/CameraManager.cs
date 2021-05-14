@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using Swatantra.Events;
 using System;
+using Swatantra.MovementSystems;
 
 namespace Swatantra.Managers
 {
@@ -22,6 +23,13 @@ namespace Swatantra.Managers
         {
             EventManager.OnMultiCharacterController.AddListener(HandleMultiCharSelection);
             EventManager.OnSingleCharacterController.AddListener(HandleSingleCharSelection);
+            Events.EventManager.OnCurrentCharacterSelection.AddListener(HandleCurrentCharacterSelection);
+        }
+
+        private void HandleCurrentCharacterSelection(Movement character)
+        {
+            SingleCharacterControlCamera.Follow = character.transform;
+            SingleCharacterControlCamera.LookAt = character.transform;
         }
         #endregion
 

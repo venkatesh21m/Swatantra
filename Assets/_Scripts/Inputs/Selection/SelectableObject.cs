@@ -92,25 +92,13 @@ namespace Swatantra.Inputs.Selection
 
         void OnMouseEnter()
         {
-            if (!selected)
-                EnableOutline();
-            else
-                changeOutlineColor(Color.white);
-
-            //Rise event to show character details on the UI
-            EventManager.OnHoverOnCharacterEvent.Invoke(characterStats.CharacterDefinition);
+            OnHover();
         }
 
         void OnMouseExit()
         {
 
-            if (!selected)
-                DisableOutline();
-            else
-                changeOutlineColor(Color.green);
-
-            //Rise event to disable character details on the UI
-            EventManager.onHoverExitOnCharacterEvent.Invoke();
+            OnHoverExit();
         }
 
         #endregion
@@ -126,6 +114,31 @@ namespace Swatantra.Inputs.Selection
             this.enabled = false;
         }
 
+        #endregion
+
+        #region Hovering methods
+
+        public void OnHover()
+        {
+            if (!selected)
+                EnableOutline();
+            else
+                changeOutlineColor(Color.white);
+
+            //Rise event to show character details on the UI
+            // EventManager.OnHoverOnCharacterEvent.Invoke(characterStats.CharacterDefinition);
+        }
+
+        public void OnHoverExit()
+        {
+            if (!selected)
+                DisableOutline();
+            else
+                changeOutlineColor(Color.green);
+
+            //Rise event to disable character details on the UI
+            // EventManager.onHoverExitOnCharacterEvent.Invoke();
+        }
         #endregion
 
         #region Selection Functions
@@ -150,6 +163,22 @@ namespace Swatantra.Inputs.Selection
             DeselectEffect();
         }
 
+
+        public void SingleCharacterOnSelection()
+        {
+            singlePlayerControl = true;
+            lineRenderer.material.color = Color.red;
+            lineRenderer.enabled = true;
+
+        }
+
+        public void SingleCharacterOnDeSelection()
+        {
+            singlePlayerControl = false;
+
+            lineRenderer.enabled = false;
+            lineRenderer.material.color = Color.green;
+        }
         #endregion
 
         #region Effects
@@ -166,8 +195,11 @@ namespace Swatantra.Inputs.Selection
             // SelectionIndicator.enabled = false;
             DisableOutline();
             changeOutlineColor(Color.white);
-            lineRenderer.enabled = false;
+
+            if (!singlePlayerControl) { lineRenderer.enabled = false; lineRenderer.material.color = Color.green; }
+            else lineRenderer.material.color = Color.red;
         }
+
         #endregion
 
         #region Outline

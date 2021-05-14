@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Swatantra.Events;
+using Swatantra.MovementSystems;
+using System;
 
 namespace Swatantra.Inputs.Selection
 {
@@ -16,7 +18,7 @@ namespace Swatantra.Inputs.Selection
         [SerializeField] bool multiPlayerControl;
 
         [Space]
-        [SerializeField] MovementSystems.Movement currentPlayer;
+        public MovementSystems.Movement currentPlayer;
 
         public static HashSet<SelectableObject> AllSelectables = new HashSet<SelectableObject>();
         public static HashSet<SelectableObject> CurrentlySelected = new HashSet<SelectableObject>();
@@ -27,8 +29,10 @@ namespace Swatantra.Inputs.Selection
         private void Start()
         {
             CheckSelectionMode();
+            Events.EventManager.OnCurrentCharacterSelection.AddListener(HandleCurrentCharacterSelection);
         }
 
+      
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.G))
@@ -108,6 +112,21 @@ namespace Swatantra.Inputs.Selection
         public void SetDestinationToMainCharacter(Vector3 targetPos)
         {
             currentPlayer.SetAgentDestination(targetPos);
+        }
+
+        private void HandleCurrentCharacterSelection(Movement CurrentCharacter)
+        {
+            Destroy(currentPlayer.gameObject.GetComponent<MainPlayerMovement>());
+            currentPlayer.GetComponent<SelectableObject>().SingleCharacterOnDeSelection();
+
+            currentPlayer = CurrentCharacter;
+            if (!currentPlayer.gameObject.GetComponent<MainPlayerMovement>())
+            {
+                currentPlayer.gameObject.AddComponent<MainPlayerMovement>().movementSpeed = 8;
+               // currentPlayer.GetComponent<MainPlayerMovement>().enabled = false;
+            }
+
+            currentPlayer.GetComponent<SelectableObject>().SingleCharacterOnSelection();
         }
 
         #endregion

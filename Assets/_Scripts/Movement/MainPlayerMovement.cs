@@ -11,11 +11,9 @@ namespace Swatantra.MovementSystems
     public class MainPlayerMovement : MonoBehaviour
     {
         #region variables
-        [SerializeField] float movementSpeed;
-
+        public float movementSpeed;
 
         private Vector3 movementInput;
-        private bool usingthis;
         private float speed;
         #endregion
 
@@ -38,6 +36,7 @@ namespace Swatantra.MovementSystems
             cameraTransform = Camera.main.transform;
             EventManager.OnMultiCharacterController.AddListener(HandleMultiCharSelection);
             EventManager.OnSingleCharacterController.AddListener(HandleSingleCharSelection);
+            enabled = false;
         }
 
         // Update is called once per frame
@@ -50,7 +49,6 @@ namespace Swatantra.MovementSystems
                     movement.enabled = false;
                     speed = agent.velocity.magnitude;
                     agent.enabled = false;
-                    usingthis = true;
                 }
                 movementInput = Vector3.Slerp(movementInput,InputManager.MovementVector, .02f);
                 speed = Mathf.Lerp(speed, movementSpeed, 0.005f);
@@ -62,7 +60,6 @@ namespace Swatantra.MovementSystems
 
                 if(InputManager.MovementVector.magnitude < 0.025f)
                 {
-                    usingthis = false;
                     agent.enabled = true;
                     movement.enabled = true;
                 }
