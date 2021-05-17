@@ -41,6 +41,9 @@ namespace Swatantra.Events
 
 
         public static Events.CurrentCharacterEvent OnCurrentCharacterSelection = new Events.CurrentCharacterEvent();
+
+
+        public static Events.IntEvent BuildingButtonPressedEvent = new Events.IntEvent();
     }
 
 }

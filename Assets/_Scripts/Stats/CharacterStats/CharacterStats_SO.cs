@@ -108,6 +108,9 @@ namespace Swatantra.Stats.characterStats
         [Header("Shelter")]
         public bool sheltered;
         public string shelterID;
+
+        [Header("Current Task")]
+        public Task currentTask = Task.Idle;
     }
 
 
@@ -116,5 +119,13 @@ namespace Swatantra.Stats.characterStats
     {
         Male,
         Female
+    }
+
+    [System.Serializable]
+    public enum Task
+    {
+        Idle,
+        Building,
+        Eating
     }
 }

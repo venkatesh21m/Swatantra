@@ -23,7 +23,6 @@ namespace Swatantra.Inputs
         Transform cameraTransform;
         #endregion
 
-
         #region Unity Default Functions
 
         private void Start()
