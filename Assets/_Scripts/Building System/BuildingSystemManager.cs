@@ -72,6 +72,7 @@ namespace Swatantra.BuildingSystem
                 {
                     Vector2Int rotationOffset = CurrentBuildingtoPlace.GetRotationOffset(direction);
                     Vector3 testObjectWorldPosition = grid.GetWorldPosition(x, z);
+
                     //new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.CellSize;
                     
                     //testObjectWorldPosition.x /*-= (CurrentBuildingtoPlace.length/2)*/; 
@@ -86,7 +87,7 @@ namespace Swatantra.BuildingSystem
                         visualiseBuilding = false;
                     }
 
-                    Tasks.CharacterTaskManager.AssignBUildingTaskToIdleCharacters(CurrentBuildingtoPlace.NumberofcharacterNeeded, placedObject.transform);
+                   Tasks.CharacterTaskManager.AssignBUildingTaskToIdleCharacters(CurrentBuildingtoPlace.NumberofcharacterNeeded, placedObject.transform);
                 }
                 else
                 {

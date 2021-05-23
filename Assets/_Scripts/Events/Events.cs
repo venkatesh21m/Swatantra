@@ -15,6 +15,7 @@ namespace Swatantra.Events
         /// event for the mouseclick event which passes a vector3
         /// </summary>
         [System.Serializable] public class Vector3Event : UnityEvent<Vector3> { };
+        [System.Serializable] public class TranformEvent : UnityEvent<Vector3> { };
 
         /// <summary>
         /// Event for handling all events which passes a boolean

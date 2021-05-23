@@ -12,6 +12,13 @@ namespace Swatantra.Inputs
     {
         #region Variables
         [SerializeField] float RaymaxDistance;
+
+        [Header("Tags")]
+        [SerializeField] string waalableTag = "";
+        [SerializeField] string StoneTag = "";
+        [SerializeField] string GoldTag = "";
+        [SerializeField] string TreeTag = "";
+
         #endregion
 
         #region Static Variables
@@ -43,6 +50,18 @@ namespace Swatantra.Inputs
                     {
                         EventManager.OnMoveTothisLocationEvent.Invoke(hit.point);
                     }
+                    else if (hit.collider.CompareTag(StoneTag))
+                    {
+                        EventManager.OnMoveTothisLocationEvent.Invoke(hit.transform.position);
+                    }
+                    else if (hit.collider.CompareTag(GoldTag))
+                    {
+                        EventManager.OnMoveTothisLocationEvent.Invoke(hit.transform.position);
+                    } 
+                    else if (hit.collider.CompareTag(TreeTag))
+                    {
+                        EventManager.OnMoveTothisLocationEvent.Invoke(hit.transform.position);
+                    } 
                 }
             }
             if (Input.GetMouseButtonDown(0))

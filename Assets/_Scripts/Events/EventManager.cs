@@ -13,6 +13,7 @@ namespace Swatantra.Events
         /// To handle click to move interation
         /// </summary>
         public static Events.Vector3Event OnMoveTothisLocationEvent = new Events.Vector3Event();
+        public static Events.Vector3Event OnGatherStoneEvent = new Events.Vector3Event();
 
 
         #region character stats related events
